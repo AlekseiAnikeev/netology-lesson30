@@ -17,12 +17,12 @@ public class HttpResponse {
     private static final ObjectMapper mapper = new ObjectMapper();
 
     public static void main(String[] args) {
-        List<FactsAboutCats> factsAboutCats = gettingDataAboutCats();
-        factsAboutCats.forEach(System.out::println);
+        List<FactsAboutCat> factsAboutCat = gettingDataAboutCat();
+        factsAboutCat.forEach(System.out::println);
     }
 
-    private static List<FactsAboutCats> gettingDataAboutCats() {
-        List<FactsAboutCats> responseList;
+    private static List<FactsAboutCat> gettingDataAboutCat() {
+        List<FactsAboutCat> responseList;
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
             HttpGet request = new HttpGet(URL);
             try (CloseableHttpResponse response = httpClient.execute(request)) {
@@ -30,7 +30,7 @@ public class HttpResponse {
                 });
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException();
         }
         return responseList.stream()
                 .filter(upvotes -> upvotes.getUpvotes() > 0)
